@@ -1,0 +1,6 @@
+[
+{
+  "directory": "/home/hongtao/warp-pipe-stdexec",
+  "arguments": ["/usr/bin/gcc", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-DALLOW_EXPERIMENTAL_API", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-DNDEBUG", "-o", "build/.objs/warp-pipe-stdexec/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
+  "file": "src/main.cpp"
+}]
