@@ -18,9 +18,15 @@ package("doca-stdexec")
             configs.kind = "shared"
         end
         import("package.tools.xmake").install(package, configs)
+        print(os.files("**.hpp"))
+        print(os.files(package:installdir("include/")))
+        os.cp("include", package:installdir())
+        return configs
     end)
+
 
     on_test(function (package)
         -- TODO check includes and interfaces
-        -- assert(package:has_cfuncs("foo", {includes = "foo.h"})
+        print(os.files(package:installdir("include/")))
+        assert(package:has_cxxincludes("doca_stdexec/buf_inventory.hpp", {configs = {languages = "c++23"}}))
     end)

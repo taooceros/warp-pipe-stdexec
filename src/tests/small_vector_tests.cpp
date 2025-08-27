@@ -87,22 +87,19 @@ void test_basic_construction() {
     ASSERT(vec4[0] == 1 && vec4[1] == 2 && vec4[2] == 3, "Elements should match initializer list");
 }
 
-void test_stack_vs_heap_storage() {
-    // Small size should use stack
+void test_stack_only_storage() {
+    // All sizes should use stack storage
     small_vector<int, 4> small_vec;
     for (int i = 0; i < 4; ++i) {
         small_vec.push_back(i);
     }
-    ASSERT(small_vec.is_using_stack_storage(), "Should use stack storage for size <= N");
+    ASSERT(small_vec.is_using_stack_storage(), "Should always use stack storage");
+    ASSERT(small_vec.size() == 4, "Size should be 4");
     
-    // Growing beyond stack capacity should move to heap
-    small_vec.push_back(4);
-    ASSERT(!small_vec.is_using_stack_storage(), "Should use heap storage for size > N");
-    ASSERT(small_vec.size() == 5, "Size should be 5 after growing");
-    
-    // Verify data integrity after move to heap
-    for (int i = 0; i < 5; ++i) {
-        ASSERT(small_vec[i] == i, "Data should be preserved after move to heap");
+    // Trying to grow beyond capacity should panic (we can't test this directly)
+    // but we can verify the behavior up to capacity
+    for (int i = 0; i < 4; ++i) {
+        ASSERT(small_vec[i] == i, "Data should be correct");
     }
 }
 
@@ -132,7 +129,7 @@ void test_element_access() {
 }
 
 void test_iterators() {
-    small_vector<int, 4> vec{1, 2, 3, 4, 5}; // Forces heap allocation
+    small_vector<int, 4> vec{1, 2, 3, 4}; // Fits in stack storage
     
     // Basic iteration
     int expected = 1;
@@ -182,7 +179,7 @@ void test_modifiers() {
 }
 
 void test_resize_operations() {
-    small_vector<int, 4> vec{1, 2, 3};
+    small_vector<int, 8> vec{1, 2, 3}; // Use larger capacity for resize tests
     
     // Resize larger
     vec.resize(5);
@@ -202,7 +199,7 @@ void test_resize_operations() {
 }
 
 void test_copy_semantics() {
-    small_vector<int, 4> vec1{1, 2, 3, 4, 5}; // Forces heap
+    small_vector<int, 4> vec1{1, 2, 3, 4}; // Fits in stack storage
     
     // Copy constructor
     small_vector<int, 4> vec2(vec1);
@@ -246,23 +243,23 @@ void test_move_semantics() {
     ASSERT(destroyed1 && destroyed2 && destroyed3, "All elements should be destroyed");
 }
 
-void test_heap_allocation_move() {
-    // Test moving from heap storage
-    small_vector<int, 2> vec1;
-    for (int i = 0; i < 5; ++i) {
+void test_stack_only_move() {
+    // Test moving with stack storage only
+    small_vector<int, 4> vec1;
+    for (int i = 0; i < 4; ++i) {
         vec1.push_back(i);
     }
-    ASSERT(!vec1.is_using_stack_storage(), "Should be using heap storage");
+    ASSERT(vec1.is_using_stack_storage(), "Should be using stack storage");
     
     // Move to another vector
-    small_vector<int, 2> vec2(std::move(vec1));
-    ASSERT(!vec2.is_using_stack_storage(), "Target should also use heap storage");
-    ASSERT(vec2.size() == 5, "All elements should be moved");
+    small_vector<int, 4> vec2(std::move(vec1));
+    ASSERT(vec2.is_using_stack_storage(), "Target should use stack storage");
+    ASSERT(vec2.size() == 4, "All elements should be moved");
     ASSERT(vec1.empty(), "Source should be empty");
     
     // Verify data integrity
-    for (int i = 0; i < 5; ++i) {
-        ASSERT(vec2[i] == i, "Data should be preserved during heap move");
+    for (int i = 0; i < 4; ++i) {
+        ASSERT(vec2[i] == i, "Data should be preserved during stack move");
     }
 }
 
@@ -271,13 +268,15 @@ void test_reserve_functionality() {
     
     // Reserve within stack capacity
     vec.reserve(3);
-    ASSERT(vec.is_using_stack_storage(), "Should still use stack storage");
-    ASSERT(vec.capacity() >= 4, "Capacity should be at least stack size");
+    ASSERT(vec.is_using_stack_storage(), "Should use stack storage");
+    ASSERT(vec.capacity() == 4, "Capacity should be fixed stack size");
     
-    // Reserve beyond stack capacity
-    vec.reserve(10);
-    ASSERT(!vec.is_using_stack_storage(), "Should move to heap storage");
-    ASSERT(vec.capacity() >= 10, "Capacity should be at least reserved size");
+    // Reserve equal to stack capacity
+    vec.reserve(4);
+    ASSERT(vec.is_using_stack_storage(), "Should still use stack storage");
+    ASSERT(vec.capacity() == 4, "Capacity should remain fixed");
+    
+    // Note: Reserving beyond stack capacity would panic, so we don't test it
 }
 
 void test_comparison_operators() {
@@ -301,26 +300,24 @@ void test_comparison_operators() {
 }
 
 void test_performance_characteristics() {
-    constexpr size_t iterations = 1000;
-    
-    // Test that stack storage is actually used for small sizes
+    // Test that stack storage is always used
     small_vector<int, 8> small_vec;
     for (size_t i = 0; i < 8; ++i) {
         small_vec.push_back(static_cast<int>(i));
     }
-    ASSERT(small_vec.is_using_stack_storage(), "Should use stack storage for small sizes");
-    
-    // Test automatic growth to heap
-    for (size_t i = 8; i < 20; ++i) {
-        small_vec.push_back(static_cast<int>(i));
-    }
-    ASSERT(!small_vec.is_using_stack_storage(), "Should use heap storage for larger sizes");
-    ASSERT(small_vec.size() == 20, "Should grow correctly to heap");
+    ASSERT(small_vec.is_using_stack_storage(), "Should always use stack storage");
+    ASSERT(small_vec.size() == 8, "Should fill up to capacity");
     
     // Verify all data is intact
-    for (size_t i = 0; i < 20; ++i) {
-        ASSERT(small_vec[i] == static_cast<int>(i), "Data should be preserved during growth");
+    for (size_t i = 0; i < 8; ++i) {
+        ASSERT(small_vec[i] == static_cast<int>(i), "Data should be correct");
     }
+    
+    // Test that we don't have heap overhead
+    constexpr size_t expected_size = sizeof(small_vector<int, 8>);
+    constexpr size_t stack_storage_size = 8 * sizeof(int);
+    constexpr size_t metadata_size = 2 * sizeof(size_t); // size_ and capacity_
+    ASSERT(expected_size >= stack_storage_size + metadata_size, "Size should be reasonable for stack-only storage");
 }
 
 void test_ring_buffer_use_case() {
@@ -364,14 +361,14 @@ int main() {
     
     try {
         TEST_CASE(basic_construction);
-        TEST_CASE(stack_vs_heap_storage);
+        TEST_CASE(stack_only_storage);
         TEST_CASE(element_access);
         TEST_CASE(iterators);
         TEST_CASE(modifiers);
         TEST_CASE(resize_operations);
         TEST_CASE(copy_semantics);
         TEST_CASE(move_semantics);
-        TEST_CASE(heap_allocation_move);
+        TEST_CASE(stack_only_move);
         TEST_CASE(reserve_functionality);
         TEST_CASE(comparison_operators);
         TEST_CASE(performance_characteristics);

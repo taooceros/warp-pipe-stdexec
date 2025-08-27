@@ -1,9 +1,11 @@
 add_rules("mode.debug", "mode.release")
 
+set_languages("c++23")
+
+
 add_repositories("myrepo dist")
 add_requires("doca-stdexec")
 
-set_languages("c++23")
 
 target("warp-pipe-stdexec")
     set_kind("binary")

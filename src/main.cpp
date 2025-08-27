@@ -3,6 +3,10 @@
 #include <span>
 #include "oc/ring_buffer.hpp"
 
+#include <stdexec/execution.hpp>
+#include <doca_stdexec/buf.hpp>
+
+
 int main(int argc, char** argv) {
     std::cout << "High-Performance SCSP Ring Buffer Demo\n";
     std::cout << "======================================\n\n";
