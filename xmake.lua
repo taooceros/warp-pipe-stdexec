@@ -2,35 +2,50 @@ add_rules("mode.debug", "mode.release")
 
 set_languages("c++23")
 
+add_requires("stdexec main")
+add_requires( "doca-rdma", "doca-argp", "doca-common", "doca-dma", {system = true})
 
-add_repositories("myrepo dist")
-add_requires("doca-stdexec")
+add_packages("stdexec")
+add_packages("doca-rdma", "doca-argp", "doca-common", "doca-dma")
 
+add_includedirs("doca-stdexec/include")
+
+add_includedirs("src")
 
 target("warp-pipe-stdexec")
+    set_kind("shared")
+    add_files("src/**.cpp")
+    remove_files("src/bin/**")
+    add_packages("stdexec")
+
+target("oc-rdma-client-sample")
     set_kind("binary")
-    add_files("src/*.cpp")
-    add_packages("doca-stdexec")
-    add_includedirs("src")
+    add_files("src/bin/rdma_sample/client.cpp")
+    add_deps("warp-pipe-stdexec")
+
+target("oc-rdma-server-sample")
+    set_kind("binary")
+    add_files("src/bin/rdma_sample/server.cpp")
+    add_deps("warp-pipe-stdexec")
 
 target("ring-buffer-examples")
     set_kind("binary")
     set_default(false)
-    add_files("src/examples/*.cpp")
+    add_files("examples/*.cpp")
     add_includedirs("src")
 
 target("ring-buffer-tests")
     set_kind("binary")
     set_default(false)
     add_tests("default")
-    add_files("src/tests/ring_buffer_tests.cpp")
+    add_files("tests/ring_buffer_tests.cpp")
     add_includedirs("src")
 
 target("small-vector-tests")
     set_kind("binary")
     set_default(false)
     add_tests("default")
-    add_files("src/tests/small_vector_tests.cpp")
+    add_files("tests/small_vector_tests.cpp")
     add_includedirs("src")
 
 --

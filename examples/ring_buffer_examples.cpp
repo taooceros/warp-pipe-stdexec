@@ -1,5 +1,5 @@
-#include "../oc/rb/basic_rb.hpp"
-#include "../oc/rb/pod_rb.hpp"
+#include "oc/rb/basic_rb.hpp"
+#include "oc/rb/pod_rb.hpp"
 #include <iostream>
 #include <thread>
 #include <chrono>

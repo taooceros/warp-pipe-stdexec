@@ -1,0 +1,3 @@
+[submodule "doca-stdexec"]
+	path = doca-stdexec
+	url = https://github.com/taooceros/doca-stdexec.git

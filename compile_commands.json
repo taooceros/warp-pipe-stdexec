@@ -1,21 +1,36 @@
 [
 {
   "directory": "/home/hongtao/warp-pipe-stdexec",
-  "arguments": ["clang++-19", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isrc", "-DNDEBUG", "-o", "build/.objs/ring-buffer-tests/linux/x86_64/release/src/tests/ring_buffer_tests.cpp.o", "src/tests/ring_buffer_tests.cpp"],
-  "file": "src/tests/ring_buffer_tests.cpp"
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/oc-rdma-server-sample/linux/x86_64/release/src/bin/rdma_sample/server.cpp.o", "src/bin/rdma_sample/server.cpp"],
+  "file": "src/bin/rdma_sample/server.cpp"
 },
 {
   "directory": "/home/hongtao/warp-pipe-stdexec",
-  "arguments": ["clang++-19", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isrc", "-DNDEBUG", "-o", "build/.objs/ring-buffer-examples/linux/x86_64/release/src/examples/ring_buffer_examples.cpp.o", "src/examples/ring_buffer_examples.cpp"],
-  "file": "src/examples/ring_buffer_examples.cpp"
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/ring-buffer-tests/linux/x86_64/release/tests/ring_buffer_tests.cpp.o", "tests/ring_buffer_tests.cpp"],
+  "file": "tests/ring_buffer_tests.cpp"
 },
 {
   "directory": "/home/hongtao/warp-pipe-stdexec",
-  "arguments": ["clang++-19", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isrc", "-DNDEBUG", "-o", "build/.objs/small-vector-tests/linux/x86_64/release/src/tests/small_vector_tests.cpp.o", "src/tests/small_vector_tests.cpp"],
-  "file": "src/tests/small_vector_tests.cpp"
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/small-vector-tests/linux/x86_64/release/tests/small_vector_tests.cpp.o", "tests/small_vector_tests.cpp"],
+  "file": "tests/small_vector_tests.cpp"
 },
 {
   "directory": "/home/hongtao/warp-pipe-stdexec",
-  "arguments": ["clang++-19", "-c", "-Qunused-arguments", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-DNDEBUG", "-o", "build/.objs/warp-pipe-stdexec/linux/x86_64/release/src/main.cpp.o", "src/main.cpp"],
-  "file": "src/main.cpp"
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/oc-rdma-client-sample/linux/x86_64/release/src/bin/rdma_sample/client.cpp.o", "src/bin/rdma_sample/client.cpp"],
+  "file": "src/bin/rdma_sample/client.cpp"
+},
+{
+  "directory": "/home/hongtao/warp-pipe-stdexec",
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fvisibility=hidden", "-fvisibility-inlines-hidden", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/ring-buffer-examples/linux/x86_64/release/examples/ring_buffer_examples.cpp.o", "examples/ring_buffer_examples.cpp"],
+  "file": "examples/ring_buffer_examples.cpp"
+},
+{
+  "directory": "/home/hongtao/warp-pipe-stdexec",
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fPIC", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/warp-pipe-stdexec/linux/x86_64/release/src/oc/tap.cpp.o", "src/oc/tap.cpp"],
+  "file": "src/oc/tap.cpp"
+},
+{
+  "directory": "/home/hongtao/warp-pipe-stdexec",
+  "arguments": ["/usr/bin/g++", "-c", "-m64", "-fPIC", "-O3", "-std=c++23", "-Idoca-stdexec/include", "-Isrc", "-DALLOW_EXPERIMENTAL_API", "-I", "/home/hongtao/.xmake/packages/s/stdexec/main/725e51fe81b74141ade9efbd3ccaf900/include", "-I", "/opt/mellanox/doca/include", "-I", "/usr/include/libnl3", "-DNDEBUG", "-o", "build/.objs/warp-pipe-stdexec/linux/x86_64/release/src/oc/oc_adapter.cpp.o", "src/oc/oc_adapter.cpp"],
+  "file": "src/oc/oc_adapter.cpp"
 }]

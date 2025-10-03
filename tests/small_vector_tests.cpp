@@ -1,4 +1,4 @@
-#include "../oc/containers/small_vector.hpp"
+#include "oc/containers/small_vector.hpp"
 #include <cassert>
 #include <iostream>
 #include <string>

@@ -14,7 +14,11 @@
 namespace oc::rb {
 
 // Cache line size for alignment optimizations
+#ifdef __cpp_lib_hardware_interference_size
 inline constexpr std::size_t cache_line_size = std::hardware_destructive_interference_size;
+#else
+inline constexpr std::size_t cache_line_size = 64; // Common cache line size fallback
+#endif
 
 // Concept to ensure types are suitable for ring buffer storage
 template<typename T>
